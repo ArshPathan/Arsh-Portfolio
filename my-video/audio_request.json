@@ -1,0 +1,22 @@
+{
+  "lang": "en",
+  "speed": 1.1,
+  "lines": [
+    { "id": "intro", "text": "12 Claude plays worth stealing." },
+    { "id": "t1",    "text": "One. Build websites with plain English.", "sfx": ["whoosh-short"] },
+    { "id": "t2",    "text": "Two. Let Claude use your computer.", "sfx": ["whoosh-short"] },
+    { "id": "t3",    "text": "Three. Create repeatable slash commands.", "sfx": ["whoosh-short"] },
+    { "id": "t4",    "text": "Four. Generate polished slides instantly.", "sfx": ["whoosh-short"] },
+    { "id": "t5",    "text": "Five. Automate tasks on a schedule.", "sfx": ["whoosh-short"] },
+    { "id": "t6",    "text": "Six. Build spreadsheets from a prompt.", "sfx": ["whoosh-short"] },
+    { "id": "t7",    "text": "Seven. Connect to 50 plus apps.", "sfx": ["whoosh-short"] },
+    { "id": "t8",    "text": "Eight. Use Claude as an AI employee.", "sfx": ["whoosh-short"] },
+    { "id": "t9",    "text": "Nine. Projects that remember everything.", "sfx": ["whoosh-short"] },
+    { "id": "t10",   "text": "Ten. Install plugins for your role.", "sfx": ["whoosh-short"] },
+    { "id": "t11",   "text": "Eleven. Let AI ask you the questions.", "sfx": ["whoosh-short"] },
+    { "id": "t12",   "text": "Twelve. Design anything from a description. Follow Insider dot Startup for more!", "sfx": ["whoosh-short"] }
+  ],
+  "bgm": {
+    "mode": "none"
+  }
+}
