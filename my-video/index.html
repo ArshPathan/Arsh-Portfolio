@@ -26,87 +26,114 @@
 
       .clip {
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 0; left: 0;
         width: 1080px;
         height: 1920px;
         overflow: hidden;
       }
 
-      .fill {
+      /* ── BRAND BAR ─────────────────────────── */
+      .brand-bar {
         position: absolute;
-        inset: 0;
-      }
-
-      .accent-line {
-        width: 100px;
-        height: 8px;
+        bottom: 0; left: 0;
+        width: 1080px; height: 100px;
         background: #E8212A;
-        border-radius: 4px;
-        margin-bottom: 44px;
-        transform-origin: left center;
-      }
-
-      .badge {
-        width: 112px;
-        height: 112px;
-        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 52px;
-        font-weight: 900;
-        color: #fff;
-        margin-bottom: 48px;
+        gap: 20px;
+      }
+      .logo-box {
+        width: 56px; height: 56px;
+        background: #111111;
+        border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
         flex-shrink: 0;
       }
-
-      .badge-red  { background: #E8212A; }
-      .badge-dark { background: #111111; }
-
-      .tip-title {
-        font-size: 72px;
-        font-weight: 900;
-        color: #111111;
-        line-height: 1.1;
-        text-transform: uppercase;
-        letter-spacing: -1px;
-        margin-bottom: 44px;
+      .logo-box span {
+        font-size: 22px; font-weight: 900; color: #ffffff; letter-spacing: -1px;
       }
-
-      .tip-desc {
-        font-size: 40px;
-        font-weight: 400;
-        color: #555555;
-        line-height: 1.6;
+      .logo-text {
+        font-size: 32px; font-weight: 900; color: #111111; letter-spacing: 3px; text-transform: uppercase;
       }
+      .logo-dot { color: #ffffff; }
 
-      .watermark {
+      /* ── PROGRESS BAR ──────────────────────── */
+      .progress-track {
         position: absolute;
-        bottom: 140px;
-        right: -20px;
-        font-size: 400px;
-        font-weight: 900;
-        color: #FDECEA;
-        line-height: 1;
-        pointer-events: none;
-        user-select: none;
-      }
-
-      .progress-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 1080px;
-        height: 7px;
+        top: 0; left: 0;
+        width: 1080px; height: 9px;
         background: #F0F0F0;
       }
-
       .progress-fill {
-        height: 7px;
-        background: #E8212A;
-        border-radius: 0 3px 3px 0;
+        height: 9px; background: #E8212A;
+        border-radius: 0 4px 4px 0;
       }
+
+      /* ── CARD ──────────────────────────────── */
+      .card {
+        position: absolute;
+        top: 80px; left: 60px;
+        width: 960px;
+        background: #ffffff;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+        border: 2px solid #F0F0F0;
+      }
+
+      .card-header {
+        background: #E8212A;
+        padding: 36px 48px 32px;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .card-num {
+        width: 88px; height: 88px;
+        background: #ffffff;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 44px; font-weight: 900; color: #E8212A;
+        flex-shrink: 0;
+      }
+      .card-header-title {
+        font-size: 46px; font-weight: 900; color: #ffffff;
+        line-height: 1.15; text-transform: uppercase; letter-spacing: -0.5px;
+      }
+
+      .card-body {
+        padding: 52px 48px 48px;
+        display: flex;
+        gap: 40px;
+        align-items: flex-start;
+      }
+      .card-emoji {
+        font-size: 110px; line-height: 1;
+        flex-shrink: 0;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+      }
+      .card-content { flex: 1; }
+      .card-desc {
+        font-size: 40px; font-weight: 400; color: #333333; line-height: 1.65;
+      }
+      .card-tag {
+        display: inline-block;
+        margin-top: 28px;
+        background: #FDECEA;
+        color: #E8212A;
+        font-size: 28px; font-weight: 700;
+        padding: 10px 24px;
+        border-radius: 100px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* ── INTRO SPECIFICS ───────────────────── */
+      .intro-fill { position: absolute; inset: 0; background: #ffffff; }
+
+      /* ── SCENE FILL ────────────────────────── */
+      .fill { position: absolute; inset: 0; }
     </style>
   </head>
   <body>
@@ -125,27 +152,47 @@
       <section id="sc-intro" class="clip" data-start="0" data-duration="3.5" data-track-index="1">
         <div class="fill" style="background:#ffffff;"></div>
 
-        <!-- large ghost number -->
+        <!-- Large ghost "12" watermark -->
         <div id="intro-ghost" style="
-          position:absolute; top:320px; left:-40px;
-          font-size:520px; font-weight:900; color:#FDECEA; line-height:1;
-          pointer-events:none; user-select:none;">12</div>
+          position:absolute; top:180px; left:-20px;
+          font-size:560px; font-weight:900; color:#FDECEA;
+          line-height:1; pointer-events:none; user-select:none; z-index:0;">12</div>
 
-        <!-- top label -->
-        <div id="intro-label" style="
-          position:absolute; top:110px; left:0; right:0;
-          text-align:center; font-size:28px; font-weight:700;
-          color:#AAAAAA; letter-spacing:6px; text-transform:uppercase;">
-          Claude Code Tips
+        <!-- Top "source" label -->
+        <div id="intro-source" style="
+          position:absolute; top:100px; left:0; right:0; text-align:center;
+          font-size:26px; font-weight:600; color:#BBBBBB; letter-spacing:4px; text-transform:uppercase; z-index:1;">
+          Source: Eric Melillo
         </div>
 
-        <!-- main headline block -->
-        <div style="position:absolute; top:500px; left:80px; right:80px;">
-          <div id="intro-h1" style="font-size:100px; font-weight:900; color:#111111; line-height:1; text-transform:uppercase; letter-spacing:-2px;">Claude</div>
-          <div id="intro-h2" style="font-size:100px; font-weight:900; color:#111111; line-height:1; text-transform:uppercase; letter-spacing:-2px;">Plays Worth</div>
-          <div id="intro-h3" style="font-size:100px; font-weight:900; color:#E8212A;  line-height:1; text-transform:uppercase; letter-spacing:-2px; margin-bottom:60px;">Stealing</div>
-          <div id="intro-line" style="width:120px; height:8px; background:#E8212A; border-radius:4px; margin-bottom:48px;"></div>
-          <div id="intro-sub" style="font-size:38px; font-weight:400; color:#777777; line-height:1.5;">AI tricks you'll actually use every day</div>
+        <!-- Headline block -->
+        <div style="position:absolute; top:560px; left:80px; right:80px; z-index:1;">
+          <div id="intro-h1" style="font-size:108px; font-weight:900; color:#111111; line-height:1; text-transform:uppercase; letter-spacing:-3px;">Claude</div>
+          <div id="intro-h2" style="font-size:108px; font-weight:900; color:#111111; line-height:1; text-transform:uppercase; letter-spacing:-3px;">Plays Worth</div>
+          <div id="intro-h3" style="font-size:108px; font-weight:900; color:#E8212A;  line-height:1; text-transform:uppercase; letter-spacing:-3px; margin-bottom:52px;">Stealing</div>
+
+          <!-- Red divider -->
+          <div id="intro-divider" style="width:140px; height:10px; background:#E8212A; border-radius:5px; margin-bottom:44px;"></div>
+
+          <div id="intro-sub" style="font-size:38px; font-weight:500; color:#666666; line-height:1.5;">
+            12 AI tricks you'll actually use
+          </div>
+        </div>
+
+        <!-- Logo at bottom intro -->
+        <div id="intro-logo" style="
+          position:absolute; bottom:160px; left:0; right:0;
+          display:flex; align-items:center; justify-content:center; gap:20px; z-index:1;">
+          <div style="width:60px; height:60px; background:#E8212A; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+            <span style="font-size:24px; font-weight:900; color:#fff; letter-spacing:-1px;">IS</span>
+          </div>
+          <span style="font-size:34px; font-weight:900; color:#111111; letter-spacing:3px; text-transform:uppercase;">INSIDER<span style="color:#E8212A;">.</span>STARTUP</span>
+        </div>
+
+        <!-- Brand bar -->
+        <div class="brand-bar">
+          <div class="logo-box"><span>IS</span></div>
+          <div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div>
         </div>
       </section>
 
@@ -153,226 +200,243 @@
            TIP 1  · 3.5 – 7.5s
       ══════════════════════════════════════ -->
       <section id="sc-1" class="clip" data-start="3.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:8.33%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">01</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t1-badge" class="badge badge-red">1</div>
-          <div id="t1-line"  class="accent-line"></div>
-          <div id="t1-title" class="tip-title">Build Websites Without Coding</div>
-          <div id="t1-desc"  class="tip-desc">Use Claude Code. Plain English in, live site out. Connect GitHub, type what you want, push it live.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:8.33%;"></div></div>
+        <div id="card-1" class="card" style="top:90px;">
+          <div class="card-header">
+            <div id="t1-num" class="card-num">1</div>
+            <div id="t1-htitle" class="card-header-title">Build Websites Without Coding</div>
+          </div>
+          <div class="card-body">
+            <div id="t1-emoji" class="card-emoji">🌐</div>
+            <div class="card-content">
+              <div id="t1-desc" class="card-desc">Use Claude Code. Plain English in, live site out. Connect GitHub, type what you want, push it live.</div>
+              <div id="t1-tag" class="card-tag">Development</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 2  · 7.5 – 11.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 2  · 7.5 – 11.5s -->
       <section id="sc-2" class="clip" data-start="7.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:16.67%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">02</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t2-badge" class="badge badge-dark">2</div>
-          <div id="t2-line"  class="accent-line"></div>
-          <div id="t2-title" class="tip-title">Let Claude Use Your Computer</div>
-          <div id="t2-desc"  class="tip-desc">Claude clicks, browses, and works on your Mac while you're away. Control it from your phone with Dispatch.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:16.67%;"></div></div>
+        <div id="card-2" class="card" style="top:90px;">
+          <div class="card-header" style="background:#111111;">
+            <div id="t2-num" class="card-num" style="color:#111111;">2</div>
+            <div id="t2-htitle" class="card-header-title">Let Claude Use Your Computer</div>
+          </div>
+          <div class="card-body">
+            <div id="t2-emoji" class="card-emoji">💻</div>
+            <div class="card-content">
+              <div id="t2-desc" class="card-desc">Claude clicks, browses, and works on your Mac while you're away. Control it from your phone with Dispatch.</div>
+              <div id="t2-tag" class="card-tag" style="background:#F0F0F0; color:#111111;">Automation</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 3  · 11.5 – 15.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 3  · 11.5 – 15.5s -->
       <section id="sc-3" class="clip" data-start="11.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:25%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">03</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t3-badge" class="badge badge-red">3</div>
-          <div id="t3-line"  class="accent-line"></div>
-          <div id="t3-title" class="tip-title">Create Skills With /Commands</div>
-          <div id="t3-desc"  class="tip-desc">Teach Claude repeatable workflows. Type /linkedin or /brief — it fires automatically. Share with your team.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:25%;"></div></div>
+        <div id="card-3" class="card" style="top:90px;">
+          <div class="card-header">
+            <div id="t3-num" class="card-num">3</div>
+            <div id="t3-htitle" class="card-header-title">Create Skills With /Commands</div>
+          </div>
+          <div class="card-body">
+            <div id="t3-emoji" class="card-emoji">⚡</div>
+            <div class="card-content">
+              <div id="t3-desc" class="card-desc">Teach Claude repeatable workflows. Type /linkedin or /brief — it fires automatically. Share with your team.</div>
+              <div id="t3-tag" class="card-tag">Productivity</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 4  · 15.5 – 19.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 4  · 15.5 – 19.5s -->
       <section id="sc-4" class="clip" data-start="15.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:33.33%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">04</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t4-badge" class="badge badge-dark">4</div>
-          <div id="t4-line"  class="accent-line"></div>
-          <div id="t4-title" class="tip-title">Generate Slides With Research</div>
-          <div id="t4-desc"  class="tip-desc">Claude researches, builds a brief, and generates a polished Gamma deck — all from one prompt.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:33.33%;"></div></div>
+        <div id="card-4" class="card" style="top:90px;">
+          <div class="card-header" style="background:#111111;">
+            <div id="t4-num" class="card-num" style="color:#111111;">4</div>
+            <div id="t4-htitle" class="card-header-title">Generate Slides With Research</div>
+          </div>
+          <div class="card-body">
+            <div id="t4-emoji" class="card-emoji">📊</div>
+            <div class="card-content">
+              <div id="t4-desc" class="card-desc">Claude researches, builds a brief, and generates a polished Gamma deck — all from just one prompt.</div>
+              <div id="t4-tag" class="card-tag" style="background:#F0F0F0; color:#111111;">Content</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 5  · 19.5 – 23.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 5  · 19.5 – 23.5s -->
       <section id="sc-5" class="clip" data-start="19.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:41.67%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">05</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t5-badge" class="badge badge-red">5</div>
-          <div id="t5-line"  class="accent-line"></div>
-          <div id="t5-title" class="tip-title">Automate Scheduled Tasks</div>
-          <div id="t5-desc"  class="tip-desc">Set recurring tasks: weekly briefings, competitor research, status reports. Runs every Monday at 7am. You don't lift a finger.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:41.67%;"></div></div>
+        <div id="card-5" class="card" style="top:90px;">
+          <div class="card-header">
+            <div id="t5-num" class="card-num">5</div>
+            <div id="t5-htitle" class="card-header-title">Automate Scheduled Tasks</div>
+          </div>
+          <div class="card-body">
+            <div id="t5-emoji" class="card-emoji">⏰</div>
+            <div class="card-content">
+              <div id="t5-desc" class="card-desc">Set recurring tasks: weekly briefings, competitor research, status reports. Runs every Monday at 7am — hands free.</div>
+              <div id="t5-tag" class="card-tag">Automation</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 6  · 23.5 – 27.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 6  · 23.5 – 27.5s -->
       <section id="sc-6" class="clip" data-start="23.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:50%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">06</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t6-badge" class="badge badge-dark">6</div>
-          <div id="t6-line"  class="accent-line"></div>
-          <div id="t6-title" class="tip-title">Create Excel Files From Prompts</div>
-          <div id="t6-desc"  class="tip-desc">Describe the spreadsheet you need. Claude builds financial models, dashboards, and analysis in seconds.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:50%;"></div></div>
+        <div id="card-6" class="card" style="top:90px;">
+          <div class="card-header" style="background:#111111;">
+            <div id="t6-num" class="card-num" style="color:#111111;">6</div>
+            <div id="t6-htitle" class="card-header-title">Create Excel Files From Prompts</div>
+          </div>
+          <div class="card-body">
+            <div id="t6-emoji" class="card-emoji">📈</div>
+            <div class="card-content">
+              <div id="t6-desc" class="card-desc">Describe the spreadsheet you need. Claude builds financial models, dashboards, and analysis in seconds.</div>
+              <div id="t6-tag" class="card-tag" style="background:#F0F0F0; color:#111111;">Productivity</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 7  · 27.5 – 31.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 7  · 27.5 – 31.5s -->
       <section id="sc-7" class="clip" data-start="27.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:58.33%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">07</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t7-badge" class="badge badge-red">7</div>
-          <div id="t7-line"  class="accent-line"></div>
-          <div id="t7-title" class="tip-title">Connect to Your Tools</div>
-          <div id="t7-desc"  class="tip-desc">Plug into Slack, Gmail, Google Drive, Notion, and 50+ apps. Claude reads, writes, and acts inside all of them.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:58.33%;"></div></div>
+        <div id="card-7" class="card" style="top:90px;">
+          <div class="card-header">
+            <div id="t7-num" class="card-num">7</div>
+            <div id="t7-htitle" class="card-header-title">Connect to Your Tools</div>
+          </div>
+          <div class="card-body">
+            <div id="t7-emoji" class="card-emoji">🔌</div>
+            <div class="card-content">
+              <div id="t7-desc" class="card-desc">Plug into Slack, Gmail, Google Drive, Notion, and 50+ apps. Claude reads, writes, and acts inside all of them.</div>
+              <div id="t7-tag" class="card-tag">Integration</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 8  · 31.5 – 35.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 8  · 31.5 – 35.5s -->
       <section id="sc-8" class="clip" data-start="31.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:66.67%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">08</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t8-badge" class="badge badge-dark">8</div>
-          <div id="t8-line"  class="accent-line"></div>
-          <div id="t8-title" class="tip-title">Use Cowork as an AI Employee</div>
-          <div id="t8-desc"  class="tip-desc">Point Claude at your folder. It reads your files, asks the right questions, and delivers docs, sheets, and slides.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:66.67%;"></div></div>
+        <div id="card-8" class="card" style="top:90px;">
+          <div class="card-header" style="background:#111111;">
+            <div id="t8-num" class="card-num" style="color:#111111;">8</div>
+            <div id="t8-htitle" class="card-header-title">Use Cowork as an AI Employee</div>
+          </div>
+          <div class="card-body">
+            <div id="t8-emoji" class="card-emoji">🤖</div>
+            <div class="card-content">
+              <div id="t8-desc" class="card-desc">Point Claude at your folder. It reads your files, asks the right questions, and delivers docs, sheets, and slides.</div>
+              <div id="t8-tag" class="card-tag" style="background:#F0F0F0; color:#111111;">AI Tools</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 9  · 35.5 – 39.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 9  · 35.5 – 39.5s -->
       <section id="sc-9" class="clip" data-start="35.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:75%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">09</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t9-badge" class="badge badge-red">9</div>
-          <div id="t9-line"  class="accent-line"></div>
-          <div id="t9-title" class="tip-title">Run Projects With Memory</div>
-          <div id="t9-desc"  class="tip-desc">Cowork Projects remember past sessions. Say "build on last week's report" — Claude knows exactly what you mean.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:75%;"></div></div>
+        <div id="card-9" class="card" style="top:90px;">
+          <div class="card-header">
+            <div id="t9-num" class="card-num">9</div>
+            <div id="t9-htitle" class="card-header-title">Run Projects With Memory</div>
+          </div>
+          <div class="card-body">
+            <div id="t9-emoji" class="card-emoji">🧠</div>
+            <div class="card-content">
+              <div id="t9-desc" class="card-desc">Cowork Projects remember past sessions. Say "build on last week's report" — Claude knows exactly what you mean.</div>
+              <div id="t9-tag" class="card-tag">AI Tools</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 10  · 39.5 – 43.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 10  · 39.5 – 43.5s -->
       <section id="sc-10" class="clip" data-start="39.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:83.33%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">10</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t10-badge" class="badge badge-dark">10</div>
-          <div id="t10-line"  class="accent-line"></div>
-          <div id="t10-title" class="tip-title">Install Plugins for Your Role</div>
-          <div id="t10-desc"  class="tip-desc">Pre-built plugins for Sales, Marketing, Legal, Finance, and Data. Each gives Claude specialized workflows and /commands.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:83.33%;"></div></div>
+        <div id="card-10" class="card" style="top:90px;">
+          <div class="card-header" style="background:#111111;">
+            <div id="t10-num" class="card-num" style="color:#111111;">10</div>
+            <div id="t10-htitle" class="card-header-title">Install Plugins for Your Role</div>
+          </div>
+          <div class="card-body">
+            <div id="t10-emoji" class="card-emoji">🔧</div>
+            <div class="card-content">
+              <div id="t10-desc" class="card-desc">Pre-built plugins for Sales, Marketing, Legal, Finance, and Data. Each gives Claude specialized workflows and /commands.</div>
+              <div id="t10-tag" class="card-tag" style="background:#F0F0F0; color:#111111;">Customization</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 11  · 43.5 – 47.5s
-      ══════════════════════════════════════ -->
+      <!-- TIP 11  · 43.5 – 47.5s -->
       <section id="sc-11" class="clip" data-start="43.5" data-duration="4" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:91.67%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">11</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t11-badge" class="badge badge-red">11</div>
-          <div id="t11-line"  class="accent-line"></div>
-          <div id="t11-title" class="tip-title">Let AI Prompt You</div>
-          <div id="t11-desc"  class="tip-desc">Add "use AskUserQuestion" to any prompt. Claude generates clickable forms. You stop writing long essays.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:91.67%;"></div></div>
+        <div id="card-11" class="card" style="top:90px;">
+          <div class="card-header">
+            <div id="t11-num" class="card-num">11</div>
+            <div id="t11-htitle" class="card-header-title">Let AI Prompt You</div>
+          </div>
+          <div class="card-body">
+            <div id="t11-emoji" class="card-emoji">💬</div>
+            <div class="card-content">
+              <div id="t11-desc" class="card-desc">Add "use AskUserQuestion" to any prompt. Claude generates clickable forms. You stop writing long essays.</div>
+              <div id="t11-tag" class="card-tag">AI Tools</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- ══════════════════════════════════════
-           TIP 12  · 47.5 – 50s
-      ══════════════════════════════════════ -->
+      <!-- TIP 12  · 47.5 – 50s -->
       <section id="sc-12" class="clip" data-start="47.5" data-duration="2.5" data-track-index="1">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div class="progress-bg"><div style="width:100%; height:7px; background:#E8212A; border-radius:0 3px 3px 0;"></div></div>
-        <div class="watermark">12</div>
-        <div style="position:absolute; top:180px; left:80px; right:80px;">
-          <div id="t12-badge" class="badge badge-dark">12</div>
-          <div id="t12-line"  class="accent-line"></div>
-          <div id="t12-title" class="tip-title">Design Anything With Claude Design</div>
-          <div id="t12-desc"  class="tip-desc">Describe a landing page, pitch deck, or app prototype. Claude builds it live — export to Canva, PDF, or straight to code.</div>
+        <div class="fill" style="background:#F7F7F7;"></div>
+        <div class="progress-track"><div class="progress-fill" style="width:100%;"></div></div>
+        <div id="card-12" class="card" style="top:90px;">
+          <div class="card-header" style="background:#111111;">
+            <div id="t12-num" class="card-num" style="color:#111111;">12</div>
+            <div id="t12-htitle" class="card-header-title">Design Anything With Claude</div>
+          </div>
+          <div class="card-body">
+            <div id="t12-emoji" class="card-emoji">🎨</div>
+            <div class="card-content">
+              <div id="t12-desc" class="card-desc">Describe a landing page, pitch deck, or app. Claude builds it live. Export to Canva, PDF, or straight to code.</div>
+              <div id="t12-tag" class="card-tag" style="background:#F0F0F0; color:#111111;">Design</div>
+            </div>
+          </div>
         </div>
+        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
       </section>
-
-      <!-- ══════════════════════════════════════
-           PERSISTENT BRAND BAR  0 – 50s  track 20
-      ══════════════════════════════════════ -->
-      <div id="sc-brand" class="clip" data-start="0" data-duration="50" data-track-index="20">
-        <div style="
-          position:absolute; bottom:0; left:0;
-          width:1080px; height:88px;
-          background:#E8212A;
-          display:flex; align-items:center; justify-content:center;
-          gap:16px;">
-          <span style="font-size:34px; font-weight:900; color:#111111; letter-spacing:3px; text-transform:uppercase;">insider.startup</span>
-        </div>
-      </div>
-
-      <!-- ══════════════════════════════════════
-           AUDIO — voiceover (direct root children)
-      ══════════════════════════════════════ -->
-      <audio id="vo-intro" src="assets/voice/intro.wav" data-start="0"    data-duration="2.03" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t1"    src="assets/voice/t1.wav"    data-start="3.8"  data-duration="2.45" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t2"    src="assets/voice/t2.wav"    data-start="7.8"  data-duration="2.11" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t3"    src="assets/voice/t3.wav"    data-start="11.8" data-duration="2.75" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t4"    src="assets/voice/t4.wav"    data-start="15.8" data-duration="2.73" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t5"    src="assets/voice/t5.wav"    data-start="19.8" data-duration="2.52" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t6"    src="assets/voice/t6.wav"    data-start="23.8" data-duration="2.35" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t7"    src="assets/voice/t7.wav"    data-start="27.8" data-duration="2.22" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t8"    src="assets/voice/t8.wav"    data-start="31.8" data-duration="2.65" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t9"    src="assets/voice/t9.wav"    data-start="35.8" data-duration="2.73" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t10"   src="assets/voice/t10.wav"   data-start="39.8" data-duration="2.45" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t11"   src="assets/voice/t11.wav"   data-start="43.8" data-duration="2.58" data-track-index="30" data-volume="1"></audio>
-      <audio id="vo-t12"   src="assets/voice/t12.wav"   data-start="47.5" data-duration="2.5"  data-track-index="30" data-volume="1"></audio>
-
-      <!-- SFX — whoosh on each scene transition -->
-      <audio id="sfx-t1"  src="assets/sfx/whoosh-short.mp3" data-start="3.5"  data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t2"  src="assets/sfx/whoosh-short.mp3" data-start="7.5"  data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t3"  src="assets/sfx/whoosh-short.mp3" data-start="11.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t4"  src="assets/sfx/whoosh-short.mp3" data-start="15.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t5"  src="assets/sfx/whoosh-short.mp3" data-start="19.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t6"  src="assets/sfx/whoosh-short.mp3" data-start="23.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t7"  src="assets/sfx/whoosh-short.mp3" data-start="27.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t8"  src="assets/sfx/whoosh-short.mp3" data-start="31.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t9"  src="assets/sfx/whoosh-short.mp3" data-start="35.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t10" src="assets/sfx/whoosh-short.mp3" data-start="39.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t11" src="assets/sfx/whoosh-short.mp3" data-start="43.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
-      <audio id="sfx-t12" src="assets/sfx/whoosh-short.mp3" data-start="47.5" data-duration="0.57" data-track-index="31" data-volume="0.35"></audio>
 
     </div><!-- /#root -->
 
@@ -380,38 +444,39 @@
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // ── INTRO ─────────────────────────────────────────
-      tl.from('#intro-label', { opacity: 0, y: -20, duration: 0.35 }, 0.0);
-      tl.from('#intro-ghost', { opacity: 0, duration: 0.7, ease: 'power2.out' }, 0.0);
-      tl.from('#intro-h1',    { opacity: 0, y: 55, duration: 0.4, ease: 'power3.out' }, 0.25);
-      tl.from('#intro-h2',    { opacity: 0, y: 55, duration: 0.4, ease: 'power3.out' }, 0.4);
-      tl.from('#intro-h3',    { opacity: 0, y: 55, duration: 0.4, ease: 'power3.out' }, 0.55);
-      tl.from('#intro-line',  { scaleX: 0, duration: 0.35, ease: 'power2.out' }, 0.72);
-      tl.from('#intro-sub',   { opacity: 0, y: 20, duration: 0.4 }, 0.82);
+      // ── INTRO ────────────────────────────────────
+      tl.from('#intro-source',  { opacity: 0, y: -15, duration: 0.3 }, 0.0);
+      tl.from('#intro-ghost',   { opacity: 0, duration: 0.6 }, 0.0);
+      tl.from('#intro-h1',      { opacity: 0, y: 60, duration: 0.38, ease: 'power3.out' }, 0.2);
+      tl.from('#intro-h2',      { opacity: 0, y: 60, duration: 0.38, ease: 'power3.out' }, 0.34);
+      tl.from('#intro-h3',      { opacity: 0, y: 60, duration: 0.38, ease: 'power3.out' }, 0.48);
+      tl.from('#intro-divider', { scaleX: 0, duration: 0.35, ease: 'power2.out' }, 0.65);
+      tl.from('#intro-sub',     { opacity: 0, y: 20, duration: 0.35 }, 0.75);
+      tl.from('#intro-logo',    { opacity: 0, y: 20, duration: 0.35 }, 0.9);
 
-      // ── TIP SCENES ───────────────────────────────────
-      // dir = 1 (slide from left) or -1 (slide from right)
-      function tipAnim(n, t, dir) {
-        const x = dir * 80;
-        const id = 't' + n;
-        tl.from('#' + id + '-badge', { scale: 0, opacity: 0, duration: 0.4, ease: 'back.out(2.2)' }, t + 0.05);
-        tl.from('#' + id + '-line',  { scaleX: 0, duration: 0.32, ease: 'power2.out' }, t + 0.3);
-        tl.from('#' + id + '-title', { x: x, opacity: 0, duration: 0.45, ease: 'power3.out' }, t + 0.38);
-        tl.from('#' + id + '-desc',  { opacity: 0, y: 26, duration: 0.4, ease: 'power2.out' }, t + 0.62);
+      // ── CARD SCENES ──────────────────────────────
+      // Card slides up from 60px below, contents stagger in
+      function cardAnim(n, t) {
+        tl.from('#card-' + n,      { y: 70, opacity: 0, duration: 0.45, ease: 'power3.out' }, t + 0.05);
+        tl.from('#t' + n + '-num', { scale: 0, opacity: 0, duration: 0.35, ease: 'back.out(2.5)' }, t + 0.18);
+        tl.from('#t' + n + '-htitle', { opacity: 0, x: 30, duration: 0.35, ease: 'power2.out' }, t + 0.28);
+        tl.from('#t' + n + '-emoji',  { scale: 0, opacity: 0, duration: 0.4, ease: 'back.out(1.7)', overwrite: 'auto' }, t + 0.38);
+        tl.from('#t' + n + '-desc',   { opacity: 0, y: 20, duration: 0.35 }, t + 0.52);
+        tl.from('#t' + n + '-tag',    { opacity: 0, x: -15, duration: 0.3 }, t + 0.65);
       }
 
-      tipAnim(1,   3.5,   1);
-      tipAnim(2,   7.5,  -1);
-      tipAnim(3,  11.5,   1);
-      tipAnim(4,  15.5,  -1);
-      tipAnim(5,  19.5,   1);
-      tipAnim(6,  23.5,  -1);
-      tipAnim(7,  27.5,   1);
-      tipAnim(8,  31.5,  -1);
-      tipAnim(9,  35.5,   1);
-      tipAnim(10, 39.5,  -1);
-      tipAnim(11, 43.5,   1);
-      tipAnim(12, 47.5,  -1);
+      cardAnim(1,   3.5);
+      cardAnim(2,   7.5);
+      cardAnim(3,  11.5);
+      cardAnim(4,  15.5);
+      cardAnim(5,  19.5);
+      cardAnim(6,  23.5);
+      cardAnim(7,  27.5);
+      cardAnim(8,  31.5);
+      cardAnim(9,  35.5);
+      cardAnim(10, 39.5);
+      cardAnim(11, 43.5);
+      cardAnim(12, 47.5);
 
       window.__timelines['main'] = tl;
     </script>
