@@ -3,287 +3,309 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
-    <title>10 Cursor AI Tricks — Insider.Startup</title>
+    <title>10 Cursor Tricks — Insider.Startup</title>
     <script src="assets/js/gsap.min.js"></script>
     <style>
       *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #fff; font-family: 'Inter', sans-serif; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0D0D0D; font-family: 'Inter', sans-serif; }
       #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
 
-      .clip {
-        position: absolute; top: 0; left: 0;
-        width: 1080px; height: 1920px; overflow: hidden;
+      .clip { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; overflow: hidden; }
+
+      /* ── PROGRESS ── */
+      .prog {
+        position: absolute; top: 0; left: 0; width: 1080px; height: 8px; z-index: 60;
+        background: rgba(255,255,255,0.15);
+      }
+      .prog-fill { height: 8px; background: #ffffff; }
+
+      /* ── COLOR BLOCK (top 840px) ── */
+      .blk {
+        position: absolute; top: 0; left: 0; width: 1080px; height: 840px;
+      }
+      .blk-red   { background: #E8212A; }
+      .blk-black { background: #0D0D0D; }
+
+      /* corner number */
+      .blk-num {
+        position: absolute; top: 44px; left: 52px;
+        font-size: 28px; font-weight: 900; letter-spacing: 1px;
+        padding: 8px 20px; border: 3px solid rgba(255,255,255,0.5);
+        color: #fff; text-transform: uppercase;
       }
 
-      #dot-grid {
-        position: absolute; top: 0; left: 0;
-        width: 1080px; height: 1920px;
-        z-index: 1; pointer-events: none;
+      /* hero emoji */
+      .blk-emoji {
+        position: absolute; top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 260px; line-height: 1;
+        filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
       }
 
-      .brand-bar {
+      /* ── WHITE SECTION (bottom 972px) ── */
+      .wht {
+        position: absolute; top: 840px; left: 0;
+        width: 1080px; height: 972px;
+        background: #ffffff;
+        padding: 64px 72px 0;
+      }
+
+      .wht-eyebrow {
+        font-size: 22px; font-weight: 700; color: #E8212A;
+        letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px;
+      }
+
+      .title-mask { overflow: hidden; }
+      .wht-title {
+        font-size: 72px; font-weight: 900; color: #0D0D0D;
+        line-height: 1.05; text-transform: uppercase;
+        letter-spacing: -2px;
+      }
+
+      .wht-rule {
+        width: 72px; height: 6px; background: #E8212A;
+        margin: 32px 0 28px;
+      }
+
+      .wht-desc {
+        font-size: 38px; font-weight: 400; color: #444;
+        line-height: 1.6;
+      }
+
+      .wht-tag {
+        display: inline-block; margin-top: 36px;
+        font-size: 22px; font-weight: 800; color: #0D0D0D;
+        letter-spacing: 3px; text-transform: uppercase;
+        border-bottom: 4px solid #E8212A; padding-bottom: 4px;
+      }
+
+      /* ── BRAND BAR ── */
+      .bar {
         position: absolute; bottom: 0; left: 0;
-        width: 1080px; height: 108px;
-        background: #E8212A;
+        width: 1080px; height: 108px; background: #E8212A;
         display: flex; align-items: center; justify-content: center; gap: 22px;
-        z-index: 50;
+        z-index: 60;
       }
-      .logo-box {
-        width: 60px; height: 60px; background: #111111; border-radius: 10px;
-        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      .bar-logo {
+        width: 58px; height: 58px; background: #0D0D0D;
+        border-radius: 8px; display: flex; align-items: center;
+        justify-content: center; flex-shrink: 0;
       }
-      .logo-box span { font-size: 24px; font-weight: 900; color: #fff; letter-spacing: -1px; }
-      .logo-text { font-size: 34px; font-weight: 900; color: #111111; letter-spacing: 3px; text-transform: uppercase; }
-      .logo-dot { color: #ffffff; }
-
-      .progress-track {
-        position: absolute; top: 0; left: 0;
-        width: 1080px; height: 10px; background: #EEEEEE; z-index: 50;
-      }
-      .progress-fill { height: 10px; background: #E8212A; border-radius: 0 5px 5px 0; }
-
-      .red-flash {
-        position: absolute; inset: 0; background: #E8212A;
-        z-index: 40; pointer-events: none;
-      }
-
-      .card {
-        position: absolute; top: 90px; left: 60px; width: 960px;
-        background: #ffffff; border-radius: 28px; overflow: hidden;
-        box-shadow: 0 12px 60px rgba(0,0,0,0.09);
-        border: 2px solid #EBEBEB; z-index: 20;
-      }
-      .card-header {
-        background: #E8212A; padding: 40px 52px 36px;
-        display: flex; align-items: center; gap: 30px;
-      }
-      .card-header.black { background: #111111; }
-      .card-num {
-        width: 92px; height: 92px; background: #fff; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 46px; font-weight: 900; color: #E8212A; flex-shrink: 0;
-      }
-      .card-num.black { color: #111111; }
-      .card-title { font-size: 44px; font-weight: 900; color: #ffffff; line-height: 1.2; text-transform: uppercase; letter-spacing: -0.5px; }
-      .card-body { padding: 56px 52px 52px; display: flex; gap: 44px; align-items: flex-start; }
-      .card-emoji { font-size: 112px; line-height: 1; flex-shrink: 0; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12)); }
-      .card-content { flex: 1; }
-      .card-desc { font-size: 40px; font-weight: 400; color: #333; line-height: 1.65; }
-      .card-tag {
-        display: inline-block; margin-top: 30px;
-        background: #FDECEA; color: #E8212A;
-        font-size: 28px; font-weight: 700;
-        padding: 10px 28px; border-radius: 100px;
-        text-transform: uppercase; letter-spacing: 1px;
-      }
-      .card-tag.black { background: #F0F0F0; color: #111111; }
-      .fill { position: absolute; inset: 0; }
+      .bar-logo span { font-size: 22px; font-weight: 900; color: #fff; letter-spacing: -1px; }
+      .bar-text { font-size: 32px; font-weight: 900; color: #0D0D0D; letter-spacing: 3px; text-transform: uppercase; }
+      .bar-dot { color: #fff; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="49">
+    <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="39">
 
-      <canvas id="dot-grid" width="1080" height="1920"></canvas>
+      <!-- ══ INTRO  0–3.5s ══════════════════════════════════ -->
+      <section id="sc-0" class="clip" data-start="0" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <!-- Full black bg -->
+        <div style="position:absolute;inset:0;background:#0D0D0D;"></div>
 
-      <!-- INTRO 0–4s -->
-      <section id="sc-intro" class="clip" data-start="0" data-duration="4" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#ffffff;"></div>
-        <div id="intro-ghost" style="position:absolute;bottom:200px;right:-30px;font-size:600px;font-weight:900;color:#FDECEA;line-height:1;pointer-events:none;z-index:3;user-select:none;">10</div>
-        <div id="intro-src" style="position:absolute;top:110px;left:0;right:0;text-align:center;font-size:26px;font-weight:600;color:#BBBBBB;letter-spacing:4px;text-transform:uppercase;z-index:4;">Cursor AI</div>
-        <div style="position:absolute;top:480px;left:80px;right:80px;z-index:4;">
-          <div style="font-size:34px;font-weight:600;color:#E8212A;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;">10 Tricks</div>
-          <div id="intro-h1" style="font-size:116px;font-weight:900;color:#111111;line-height:1;text-transform:uppercase;letter-spacing:-4px;">NON-DEV</div>
-          <div id="intro-h2" style="font-size:116px;font-weight:900;color:#E8212A;line-height:1;text-transform:uppercase;letter-spacing:-4px;margin-bottom:50px;">NEEDS</div>
-          <div id="intro-divider" style="width:150px;height:10px;background:#E8212A;border-radius:5px;margin-bottom:44px;"></div>
-          <div id="intro-sub" style="font-size:38px;font-weight:400;color:#666;line-height:1.5;">For founders, marketers &amp; operators</div>
-        </div>
-        <div id="intro-logo" style="position:absolute;bottom:168px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:20px;z-index:4;">
-          <div style="width:62px;height:62px;background:#E8212A;border-radius:10px;display:flex;align-items:center;justify-content:center;">
-            <span style="font-size:26px;font-weight:900;color:#fff;letter-spacing:-1px;">IS</span>
+        <!-- Ghost "10" -->
+        <div id="i-ghost" style="position:absolute;top:-60px;right:-40px;font-size:700px;font-weight:900;color:rgba(232,33,42,0.12);line-height:1;pointer-events:none;z-index:1;user-select:none;">10</div>
+
+        <!-- Red accent bar left -->
+        <div id="i-bar" style="position:absolute;top:0;left:0;width:18px;height:1920px;background:#E8212A;z-index:2;"></div>
+
+        <!-- Main text block -->
+        <div style="position:absolute;top:380px;left:80px;right:60px;z-index:3;">
+          <div id="i-label" style="font-size:24px;font-weight:700;color:#E8212A;letter-spacing:5px;text-transform:uppercase;margin-bottom:28px;">Cursor AI</div>
+
+          <div class="title-mask" style="margin-bottom:8px;">
+            <div id="i-h1" style="font-size:148px;font-weight:900;color:#ffffff;line-height:0.92;text-transform:uppercase;letter-spacing:-6px;">MOST</div>
           </div>
-          <span style="font-size:36px;font-weight:900;color:#111;letter-spacing:3px;text-transform:uppercase;">INSIDER<span style="color:#E8212A;">.</span>STARTUP</span>
+          <div class="title-mask" style="margin-bottom:8px;">
+            <div id="i-h2" style="font-size:148px;font-weight:900;color:#ffffff;line-height:0.92;text-transform:uppercase;letter-spacing:-6px;">PEOPLE</div>
+          </div>
+          <div class="title-mask" style="margin-bottom:48px;">
+            <div id="i-h3" style="font-size:148px;font-weight:900;color:#E8212A;line-height:0.92;text-transform:uppercase;letter-spacing:-6px;">DON'T.</div>
+          </div>
+
+          <div id="i-sub" style="font-size:40px;font-weight:400;color:rgba(255,255,255,0.65);line-height:1.5;">10 Cursor tricks non-developers<br>actually need to know.</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+
+        <!-- IS logo -->
+        <div id="i-logo" style="position:absolute;bottom:168px;left:80px;display:flex;align-items:center;gap:18px;z-index:3;">
+          <div style="width:58px;height:58px;background:#E8212A;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:22px;font-weight:900;color:#fff;letter-spacing:-1px;">IS</span>
+          </div>
+          <span style="font-size:30px;font-weight:900;color:#ffffff;letter-spacing:3px;text-transform:uppercase;">INSIDER<span style="color:#E8212A;">.</span>STARTUP</span>
+        </div>
+
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 1  4–8.5s -->
-      <section id="sc-1" class="clip" data-start="4" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:10%;"></div></div>
-        <div id="flash-1" class="red-flash"></div>
-        <div id="card-1" class="card">
-          <div class="card-header"><div id="t1-num" class="card-num">1</div><div id="t1-title" class="card-title">Write A Website With Plain English</div></div>
-          <div class="card-body">
-            <div id="t1-emoji" class="card-emoji">🌐</div>
-            <div class="card-content">
-              <div id="t1-desc" class="card-desc">Type what you want. Cursor turns plain English into a live deployed website. No HTML required.</div>
-              <div id="t1-tag" class="card-tag">Development</div>
-            </div>
-          </div>
+      <!-- ══ TIP 1  3.5–7s  BLACK ════════════════════════ -->
+      <section id="sc-1" class="clip" data-start="3.5" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:10%;"></div></div>
+        <div id="blk-1" class="blk blk-black">
+          <div class="blk-num">01</div>
+          <div id="em-1" class="blk-emoji">🌐</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Development</div>
+          <div class="title-mask"><div id="ttl-1" class="wht-title">Plain English<br>→ Live Site</div></div>
+          <div id="rule-1" class="wht-rule"></div>
+          <div id="desc-1" class="wht-desc">Describe a site. Watch it get built.</div>
+          <div id="tag-1" class="wht-tag">No HTML Required</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 2  8.5–13s -->
-      <section id="sc-2" class="clip" data-start="8.5" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:20%;"></div></div>
-        <div id="flash-2" class="red-flash"></div>
-        <div id="card-2" class="card">
-          <div class="card-header black"><div id="t2-num" class="card-num black">2</div><div id="t2-title" class="card-title">Fix Bugs Just By Describing Them</div></div>
-          <div class="card-body">
-            <div id="t2-emoji" class="card-emoji">🐛</div>
-            <div class="card-content">
-              <div id="t2-desc" class="card-desc">Tell Cursor what's broken. It finds the exact line, explains the issue, and fixes it instantly.</div>
-              <div id="t2-tag" class="card-tag black">Debugging</div>
-            </div>
-          </div>
+      <!-- ══ TIP 2  7–10.5s  RED ════════════════════════ -->
+      <section id="sc-2" class="clip" data-start="7" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:20%;"></div></div>
+        <div id="blk-2" class="blk blk-red">
+          <div class="blk-num">02</div>
+          <div id="em-2" class="blk-emoji">🐛</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Debugging</div>
+          <div class="title-mask"><div id="ttl-2" class="wht-title">Describe The Bug<br>→ Fixed</div></div>
+          <div id="rule-2" class="wht-rule"></div>
+          <div id="desc-2" class="wht-desc">Tell it what's broken. It finds the exact line.</div>
+          <div id="tag-2" class="wht-tag">No Stack Overflow</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 3  13–17.5s -->
-      <section id="sc-3" class="clip" data-start="13" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:30%;"></div></div>
-        <div id="flash-3" class="red-flash"></div>
-        <div id="card-3" class="card">
-          <div class="card-header"><div id="t3-num" class="card-num">3</div><div id="t3-title" class="card-title">Clone Any Design From A Screenshot</div></div>
-          <div class="card-body">
-            <div id="t3-emoji" class="card-emoji">🖼️</div>
-            <div class="card-content">
-              <div id="t3-desc" class="card-desc">Drop a screenshot of any site or app. Cursor clones the layout and style into working code.</div>
-              <div id="t3-tag" class="card-tag">Design</div>
-            </div>
-          </div>
+      <!-- ══ TIP 3  10.5–14s  BLACK ══════════════════════ -->
+      <section id="sc-3" class="clip" data-start="10.5" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:30%;"></div></div>
+        <div id="blk-3" class="blk blk-black">
+          <div class="blk-num">03</div>
+          <div id="em-3" class="blk-emoji">🖼️</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Design</div>
+          <div class="title-mask"><div id="ttl-3" class="wht-title">Screenshot<br>→ Working Code</div></div>
+          <div id="rule-3" class="wht-rule"></div>
+          <div id="desc-3" class="wht-desc">Clone any app or site from a screenshot.</div>
+          <div id="tag-3" class="wht-tag">Any Design</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 4  17.5–22s -->
-      <section id="sc-4" class="clip" data-start="17.5" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:40%;"></div></div>
-        <div id="flash-4" class="red-flash"></div>
-        <div id="card-4" class="card">
-          <div class="card-header black"><div id="t4-num" class="card-num black">4</div><div id="t4-title" class="card-title">Generate Forms And Dashboards Instantly</div></div>
-          <div class="card-body">
-            <div id="t4-emoji" class="card-emoji">📋</div>
-            <div class="card-content">
-              <div id="t4-desc" class="card-desc">Describe the form or dashboard you need. Cursor builds it with full validation and styling baked in.</div>
-              <div id="t4-tag" class="card-tag black">Productivity</div>
-            </div>
-          </div>
+      <!-- ══ TIP 4  14–17.5s  RED ══════════════════════ -->
+      <section id="sc-4" class="clip" data-start="14" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:40%;"></div></div>
+        <div id="blk-4" class="blk blk-red">
+          <div class="blk-num">04</div>
+          <div id="em-4" class="blk-emoji">📋</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Productivity</div>
+          <div class="title-mask"><div id="ttl-4" class="wht-title">English In<br>→ Dashboard Out</div></div>
+          <div id="rule-4" class="wht-rule"></div>
+          <div id="desc-4" class="wht-desc">Your dashboard, described in English. Done.</div>
+          <div id="tag-4" class="wht-tag">Forms Too</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 5  22–26.5s -->
-      <section id="sc-5" class="clip" data-start="22" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:50%;"></div></div>
-        <div id="flash-5" class="red-flash"></div>
-        <div id="card-5" class="card">
-          <div class="card-header"><div id="t5-num" class="card-num">5</div><div id="t5-title" class="card-title">Write SQL Without Knowing SQL</div></div>
-          <div class="card-body">
-            <div id="t5-emoji" class="card-emoji">🗄️</div>
-            <div class="card-content">
-              <div id="t5-desc" class="card-desc">Say what data you need. Cursor writes and runs the exact SQL query against your real database.</div>
-              <div id="t5-tag" class="card-tag">Data</div>
-            </div>
-          </div>
+      <!-- ══ TIP 5  17.5–21s  BLACK ════════════════════ -->
+      <section id="sc-5" class="clip" data-start="17.5" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:50%;"></div></div>
+        <div id="blk-5" class="blk blk-black">
+          <div class="blk-num">05</div>
+          <div id="em-5" class="blk-emoji">🗄️</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Data</div>
+          <div class="title-mask"><div id="ttl-5" class="wht-title">Ask In English<br>→ Get SQL</div></div>
+          <div id="rule-5" class="wht-rule"></div>
+          <div id="desc-5" class="wht-desc">Ask for data in plain English. It writes the SQL.</div>
+          <div id="tag-5" class="wht-tag">Zero SQL Knowledge</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 6  26.5–31s -->
-      <section id="sc-6" class="clip" data-start="26.5" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:60%;"></div></div>
-        <div id="flash-6" class="red-flash"></div>
-        <div id="card-6" class="card">
-          <div class="card-header black"><div id="t6-num" class="card-num black">6</div><div id="t6-title" class="card-title">Connect To Notion, GitHub, Supabase</div></div>
-          <div class="card-body">
-            <div id="t6-emoji" class="card-emoji">🔌</div>
-            <div class="card-content">
-              <div id="t6-desc" class="card-desc">MCP plugins let Cursor read and write to your real tools. It knows your actual data, not fake examples.</div>
-              <div id="t6-tag" class="card-tag black">Integration</div>
-            </div>
-          </div>
+      <!-- ══ TIP 6  21–24.5s  RED ══════════════════════ -->
+      <section id="sc-6" class="clip" data-start="21" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:60%;"></div></div>
+        <div id="blk-6" class="blk blk-red">
+          <div class="blk-num">06</div>
+          <div id="em-6" class="blk-emoji">🔌</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Integration</div>
+          <div class="title-mask"><div id="ttl-6" class="wht-title">It Reads Your<br>Actual Tools</div></div>
+          <div id="rule-6" class="wht-rule"></div>
+          <div id="desc-6" class="wht-desc">Notion. GitHub. Supabase. Your real data.</div>
+          <div id="tag-6" class="wht-tag">MCP Plugins</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 7  31–35.5s -->
-      <section id="sc-7" class="clip" data-start="31" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:70%;"></div></div>
-        <div id="flash-7" class="red-flash"></div>
-        <div id="card-7" class="card">
-          <div class="card-header"><div id="t7-num" class="card-num">7</div><div id="t7-title" class="card-title">Refactor Your Whole Codebase In One Click</div></div>
-          <div class="card-body">
-            <div id="t7-emoji" class="card-emoji">♻️</div>
-            <div class="card-content">
-              <div id="t7-desc" class="card-desc">Rename, restructure, or modernize across every file at once. Cursor handles the whole refactor safely.</div>
-              <div id="t7-tag" class="card-tag">Refactoring</div>
-            </div>
-          </div>
+      <!-- ══ TIP 7  24.5–28s  BLACK ════════════════════ -->
+      <section id="sc-7" class="clip" data-start="24.5" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:70%;"></div></div>
+        <div id="blk-7" class="blk blk-black">
+          <div class="blk-num">07</div>
+          <div id="em-7" class="blk-emoji">♻️</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Refactoring</div>
+          <div class="title-mask"><div id="ttl-7" class="wht-title">Whole Codebase<br>One Command</div></div>
+          <div id="rule-7" class="wht-rule"></div>
+          <div id="desc-7" class="wht-desc">One command. Entire codebase refactored.</div>
+          <div id="tag-7" class="wht-tag">Every File</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 8  35.5–40s -->
-      <section id="sc-8" class="clip" data-start="35.5" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:80%;"></div></div>
-        <div id="flash-8" class="red-flash"></div>
-        <div id="card-8" class="card">
-          <div class="card-header black"><div id="t8-num" class="card-num black">8</div><div id="t8-title" class="card-title">Auto-Generate Unit Tests</div></div>
-          <div class="card-body">
-            <div id="t8-emoji" class="card-emoji">🧪</div>
-            <div class="card-content">
-              <div id="t8-desc" class="card-desc">Point Cursor at any function. It writes comprehensive tests covering edge cases you'd never think to write.</div>
-              <div id="t8-tag" class="card-tag black">Testing</div>
-            </div>
-          </div>
+      <!-- ══ TIP 8  28–31.5s  RED ══════════════════════ -->
+      <section id="sc-8" class="clip" data-start="28" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:80%;"></div></div>
+        <div id="blk-8" class="blk blk-red">
+          <div class="blk-num">08</div>
+          <div id="em-8" class="blk-emoji">🧪</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Testing</div>
+          <div class="title-mask"><div id="ttl-8" class="wht-title">It Writes<br>Your Tests</div></div>
+          <div id="rule-8" class="wht-rule"></div>
+          <div id="desc-8" class="wht-desc">It writes your tests. All the edge cases too.</div>
+          <div id="tag-8" class="wht-tag">Full Coverage</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 9  40–44.5s -->
-      <section id="sc-9" class="clip" data-start="40" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:90%;"></div></div>
-        <div id="flash-9" class="red-flash"></div>
-        <div id="card-9" class="card">
-          <div class="card-header"><div id="t9-num" class="card-num">9</div><div id="t9-title" class="card-title">Deploy To Production With A Prompt</div></div>
-          <div class="card-body">
-            <div id="t9-emoji" class="card-emoji">🚀</div>
-            <div class="card-content">
-              <div id="t9-desc" class="card-desc">Say "deploy this to Vercel." Cursor configures, builds, and ships your project live without a terminal.</div>
-              <div id="t9-tag" class="card-tag">Deployment</div>
-            </div>
-          </div>
+      <!-- ══ TIP 9  31.5–35s  BLACK ════════════════════ -->
+      <section id="sc-9" class="clip" data-start="31.5" data-duration="3.5" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:90%;"></div></div>
+        <div id="blk-9" class="blk blk-black">
+          <div class="blk-num">09</div>
+          <div id="em-9" class="blk-emoji">🚀</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Deployment</div>
+          <div class="title-mask"><div id="ttl-9" class="wht-title">Say Deploy<br>→ It Ships</div></div>
+          <div id="rule-9" class="wht-rule"></div>
+          <div id="desc-9" class="wht-desc">Say deploy. It ships to Vercel. No terminal.</div>
+          <div id="tag-9" class="wht-tag">One Sentence</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
-      <!-- TIP 10  44.5–49s -->
-      <section id="sc-10" class="clip" data-start="44.5" data-duration="4.5" data-track-index="1" style="z-index:2;">
-        <div class="fill" style="background:#F7F7F7;"></div>
-        <div class="progress-track"><div class="progress-fill" style="width:100%;"></div></div>
-        <div id="flash-10" class="red-flash"></div>
-        <div id="card-10" class="card">
-          <div class="card-header black"><div id="t10-num" class="card-num black">10</div><div id="t10-title" class="card-title">Build Internal Tools Overnight</div></div>
-          <div class="card-body">
-            <div id="t10-emoji" class="card-emoji">🏗️</div>
-            <div class="card-content">
-              <div id="t10-desc" class="card-desc">Replace $50/mo SaaS tools with custom apps. Cursor builds dashboards, automations, and internal tools fast.</div>
-              <div id="t10-tag" class="card-tag black">Automation</div>
-            </div>
-          </div>
+      <!-- ══ TIP 10  35–39s  RED ════════════════════════ -->
+      <section id="sc-10" class="clip" data-start="35" data-duration="4" data-track-index="1" style="z-index:2;">
+        <div class="prog"><div class="prog-fill" style="width:100%;"></div></div>
+        <div id="blk-10" class="blk blk-red">
+          <div class="blk-num">10</div>
+          <div id="em-10" class="blk-emoji">🏗️</div>
         </div>
-        <div class="brand-bar"><div class="logo-box"><span>IS</span></div><div class="logo-text">INSIDER<span class="logo-dot">.</span>STARTUP</div></div>
+        <div class="wht">
+          <div class="wht-eyebrow">Automation</div>
+          <div class="title-mask"><div id="ttl-10" class="wht-title">Kill Your SaaS<br>Build Your Own</div></div>
+          <div id="rule-10" class="wht-rule"></div>
+          <div id="desc-10" class="wht-desc">Kill your SaaS stack. Build your own tools overnight.</div>
+          <div id="tag-10" class="wht-tag">Follow Insider.Startup</div>
+        </div>
+        <div class="bar"><div class="bar-logo"><span>IS</span></div><div class="bar-text">INSIDER<span class="bar-dot">.</span>STARTUP</div></div>
       </section>
 
     </div>
@@ -292,100 +314,51 @@
       window.__timelines = window.__timelines || {};
       var tl = gsap.timeline({ paused: true });
 
-      // ── DOT GRID (shared, behind all clips) ──────────────────────
-      (function() {
-        var canvas = document.getElementById('dot-grid');
-        var ctx = canvas.getContext('2d');
-        var COLS = 19, ROWS = 34;
-        var SX = 1080 / COLS, SY = 1920 / ROWS;
-        function drawGrid(t) {
-          ctx.clearRect(0, 0, 1080, 1920);
-          ctx.fillStyle = 'rgba(180,180,180,0.32)';
-          var drift = (t * 6) % SY;
-          for (var r = -1; r <= ROWS + 1; r++) {
-            for (var c = 0; c <= COLS; c++) {
-              ctx.beginPath();
-              ctx.arc(c * SX, r * SY + drift, 2.5, 0, Math.PI * 2);
-              ctx.fill();
-            }
-          }
-        }
-        drawGrid(0);
-        var proxy = { t: 0 };
-        tl.to(proxy, { t: 49, duration: 49, ease: 'none', onUpdate: function() { drawGrid(proxy.t); } }, 0);
-      })();
-
-      // ── DETERMINISTIC HACKER DECODE ──────────────────────────────
-      function seededHash(a, b) {
-        var n = (a * 374761393 + b * 668265263) >>> 0;
-        n = ((n ^ (n >>> 13)) * 1274126177) >>> 0;
-        return ((n ^ (n >>> 16)) & 0x7fffffff) / 0x7fffffff;
-      }
-      var GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&!?';
-
-      function hackerDecode(elementId, startTime, totalDur) {
-        var el = document.getElementById(elementId);
-        var text = el.textContent;
-        var STEPS = 20;
-        var stepDur = totalDur / STEPS;
-        var nonSpace = text.replace(/\s/g, '').length;
-
-        var frames = [];
-        for (var s = 0; s < STEPS; s++) {
-          var frame = '';
-          var charCount = 0;
-          for (var i = 0; i < text.length; i++) {
-            if (text[i] === ' ' || text[i] === '\n') { frame += text[i]; continue; }
-            var progress = s / (STEPS - 1);
-            var threshold = charCount / nonSpace;
-            if (progress >= threshold + 0.3) {
-              frame += text[i];
-            } else {
-              frame += GLYPHS[Math.floor(seededHash(i, s) * GLYPHS.length)];
-            }
-            charCount++;
-          }
-          frames.push(frame);
-        }
-
-        for (var step = 0; step < STEPS; step++) {
-          (function(s) {
-            tl.call(function() { el.textContent = frames[s]; }, [], startTime + s * stepDur);
-          })(step);
-        }
-        tl.call(function() { el.textContent = text; }, [], startTime + totalDur + 0.02);
-      }
-
       // ── INTRO ────────────────────────────────────────────────────
-      tl.from('#intro-ghost',   { opacity: 0, duration: 0.5 }, 0);
-      tl.from('#intro-src',     { opacity: 0, y: -15, duration: 0.3 }, 0.1);
-      tl.from('#intro-h1',      { opacity: 0, y: 70, duration: 0.4, ease: 'power3.out' }, 0.22);
-      tl.from('#intro-h2',      { opacity: 0, y: 70, duration: 0.4, ease: 'power3.out' }, 0.38);
-      tl.from('#intro-divider', { scaleX: 0, duration: 0.35, ease: 'power2.out', transformOrigin: 'left' }, 0.56);
-      tl.from('#intro-sub',     { opacity: 0, y: 20, duration: 0.35 }, 0.66);
-      tl.from('#intro-logo',    { opacity: 0, y: 20, duration: 0.35 }, 0.80);
+      tl.from('#i-bar',   { scaleY: 0, transformOrigin: 'top', duration: 0.4, ease: 'power4.out' }, 0);
+      tl.from('#i-ghost', { opacity: 0, duration: 0.5 }, 0);
+      tl.from('#i-label', { opacity: 0, x: -20, duration: 0.25 }, 0.15);
+      tl.from('#i-h1',    { y: '105%', duration: 0.35, ease: 'power4.out' }, 0.22);
+      tl.from('#i-h2',    { y: '105%', duration: 0.35, ease: 'power4.out' }, 0.32);
+      tl.from('#i-h3',    { y: '105%', duration: 0.35, ease: 'power4.out' }, 0.42);
+      tl.from('#i-sub',   { opacity: 0, y: 20, duration: 0.3 }, 0.62);
+      tl.from('#i-logo',  { opacity: 0, duration: 0.3 }, 0.78);
 
-      // ── TIP SCENE HELPER ─────────────────────────────────────────
+      // ── TIP SCENE ────────────────────────────────────────────────
       function tipScene(n, t) {
-        tl.to('#flash-' + n, { opacity: 0, duration: 0.13, ease: 'power1.out' }, t);
-        tl.from('#card-' + n, { y: 90, scale: 1.05, opacity: 0, duration: 0.5, ease: 'back.out(1.8)' }, t + 0.1);
-        tl.from('#t' + n + '-num',   { scale: 0, opacity: 0, duration: 0.38, ease: 'back.out(2.8)' }, t + 0.22);
-        hackerDecode('t' + n + '-title', t + 0.28, 0.55);
-        tl.from('#t' + n + '-emoji', { scale: 0, rotation: -15, opacity: 0, duration: 0.45, ease: 'back.out(2)' }, t + 0.38);
-        tl.from('#t' + n + '-desc',  { opacity: 0, y: 22, duration: 0.35 }, t + 0.56);
-        tl.from('#t' + n + '-tag',   { opacity: 0, x: -18, duration: 0.3 }, t + 0.70);
+        // color block slams from top
+        tl.from('#blk-' + n, { y: -60, duration: 0.22, ease: 'power4.out' }, t);
+
+        // emoji pops in
+        tl.from('#em-' + n, {
+          scale: 0.75, opacity: 0, duration: 0.28, ease: 'power3.out'
+        }, t + 0.1);
+
+        // title wipes up from mask
+        tl.from('#ttl-' + n, { y: '110%', duration: 0.32, ease: 'power4.out' }, t + 0.18);
+
+        // red rule draws left to right
+        tl.from('#rule-' + n, {
+          scaleX: 0, transformOrigin: 'left', duration: 0.28, ease: 'power3.out'
+        }, t + 0.3);
+
+        // desc fades up
+        tl.from('#desc-' + n, { opacity: 0, y: 18, duration: 0.25 }, t + 0.36);
+
+        // tag fades in
+        tl.from('#tag-' + n,  { opacity: 0, duration: 0.22 }, t + 0.46);
       }
 
-      tipScene(1,  4.0);
-      tipScene(2,  8.5);
-      tipScene(3,  13.0);
-      tipScene(4,  17.5);
-      tipScene(5,  22.0);
-      tipScene(6,  26.5);
-      tipScene(7,  31.0);
-      tipScene(8,  35.5);
-      tipScene(9,  40.0);
-      tipScene(10, 44.5);
+      tipScene(1,  3.5);
+      tipScene(2,  7.0);
+      tipScene(3,  10.5);
+      tipScene(4,  14.0);
+      tipScene(5,  17.5);
+      tipScene(6,  21.0);
+      tipScene(7,  24.5);
+      tipScene(8,  28.0);
+      tipScene(9,  31.5);
+      tipScene(10, 35.0);
 
       window.__timelines['main'] = tl;
     </script>
